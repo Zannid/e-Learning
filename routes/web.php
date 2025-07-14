@@ -1,17 +1,16 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MapelController;
-use App\Http\Controllers\GuruController;
-use App\Http\Controllers\SiswaController;
-use App\Http\Controllers\QuizController;
-use App\Http\Controllers\TugasController;
-use App\Http\Controllers\MateriController;
-use App\Http\Controllers\KelasController;
 use App\Http\Controllers\FrontController;
-use App\Http\Controllers\UserTugasController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MapelController;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\TugasController;
 use App\Http\Controllers\UserQuizController;
-use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\UserTugasController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +24,6 @@ use App\Http\Middleware\RoleMiddleware;
 */
 
 Route::get('/', [FrontController::class, 'index'])->name('welcome');
-
 
 Route::resource('siswa', SiswaController::class);
 Route::resource('mapel', MapelController::class);
@@ -45,11 +43,13 @@ Route::middleware(['auth'])->prefix('user')->name('user.')->group(function () {
     Route::get('/quiz/{id}/hasil', [UserQuizController::class, 'hasil'])->name('quiz.hasil');
 });
 
-
 // Public
-Route::get('/', [FrontController::class, 'index'])->name('welcome');
+
 Route::get('/quizz', [FrontController::class, 'quizz'])->name('quizz');
-Route::get('/tugass', [FrontController::class, 'tugass'])->name('tugass');
+Route::post('/quiz/{id}/quiz-submit', [FrontController::class, 'quizSubmit'])->name('quizSubmit');
+Route::post('/quizz/periksa-kode', [FrontController::class, 'periksaKode'])->name('periksaKode');
+Route::get('/quizz/{kode}/kerjakan', [FrontController::class, 'kerjakan'])->name('kerjakan');
+
 
 // Admin only
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
@@ -66,8 +66,6 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
 // });
 
 // Siswa
-
-
 
 Auth::routes();
 

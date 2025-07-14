@@ -21,23 +21,23 @@
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css')}}"/>
 
 
-
-
-
     <div class="services section" id="services">
       <div class="container">
         <div class="row justify-content-center">
-         
+
           <div class="col-lg-4 col-md-6">
             <div class="service-item">
               <div class="main-content">
-                <h4>Masukan Code Quiz</h4>
-                <input type="text" class="form-control">
-                <p></p>
-                <p></p>
-                <div class="main-button">
-                  <a href="#">Read More</a>
-                </div>
+                <form method="POST" action="{{ route('periksaKode') }}" id="periksaForm">
+                  @csrf
+                  <h4>Masukan Code Quiz</h4>
+                  <input name="kode" type="text" class="form-control" required>
+                  <p></p>
+                  <p></p>
+                  <div class="main-button">
+                    <button type="submit">Periksa Kode</button>
+                  </div>
+               </form>
               </div>
             </div>
           </div>

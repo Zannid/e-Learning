@@ -15,15 +15,16 @@ return new class extends Migration
     {
         Schema::create('soal_quizzes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('quiz_id');
+            $table->unsignedBigInteger('id_quiz');
             $table->text('pertanyaan');
             $table->string('pilihan_a', 255);
             $table->string('pilihan_b', 255);
             $table->string('pilihan_c', 255);
             $table->string('pilihan_d', 255);
             $table->enum('jawaban_benar', ['A', 'B', 'C', 'D']);
-            $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
+            $table->foreign('id_quiz')->references('id')->on('quizzes')->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 

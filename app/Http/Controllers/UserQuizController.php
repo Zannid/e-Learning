@@ -20,7 +20,7 @@ class UserQuizController extends Controller
     {
         $quiz = Quiz::with('soal')->findOrFail($id);
         if (now()->gt($quiz->tenggat_waktu)) {
-            return redirect()->back()->with('error', 'Quiz sudah lewat tenggat waktu.');
+            return redirect()->back()->with('error', 'Tugas sudah lewat tenggat waktu.');
         }
 
         return view('user.quiz.kerjakan', compact('quiz'));
@@ -29,69 +29,64 @@ class UserQuizController extends Controller
     // Menyimpan hasil pengerjaan
     public function submit(Request $request, $id)
     {
-        // Validasi input
-        $request->validate([
-            'jawaban'   => 'required|array',
-            'jawaban.*' => 'required|in:A,B,C,D',
-        ]);
-
-        $quiz        = Quiz::with('soal')->findOrFail($id);
+        $quiz       = Quiz::with('soal')->findOrFail($id);
         $jawabanUser = $request->jawaban;
         $benar       = 0;
         $totalSoal   = $quiz->soal->count();
 
-        // Cek apakah user sudah pernah mengerjakan quiz ini
-        $existingNilai = NilaiQuiz::where('id_user', Auth::id())
-            ->where('id_quiz', $quiz->id)
-            ->first();
-
-        if ($existingNilai) {
-            return redirect()->route('user.quiz.hasil', $quiz->id)
-                ->with('info', 'Anda sudah mengerjakan quiz ini sebelumnya.');
+        foreach ($quiz->soal as $soal) {
+            $jawaban = $jawabanUser[$soal->id] ?? null;
+            if ($jawaban && $jawaban === $soal->jawaban_benar) {
+                $benar++;
+            }
         }
 
-        // Proses setiap jawaban
-        foreach ($quiz->soal as $soal) {
-            $jawabanTerpilih = $jawabanUser[$soal->id] ?? null;
-            $isCorrect       = $jawabanTerpilih && $jawabanTerpilih === $soal->jawaban_benar;
+        if ($totalSoal == 0) {
+            $nilai = 0;
+        } else {
+            $nilai = ($benar / $totalSoal) * 100;
+        }
 
-            // Simpan jawaban user
+        NilaiQuiz::create([
+            'id_user'  => Auth::id(),
+            'id_quiz' => $quiz->id,
+            'nilai'    => $nilai,
+        ]);
+        foreach ($quiz->soal as $soal) {
+            $jawaban   = $jawabanUser[$soal->id] ?? null;
+            $isCorrect = $jawaban === $soal->jawaban_benar;
+
             JawabanQuiz::create([
-                'id_user' => Auth::id(),
+                'id_user'  => Auth::id(),
                 'id_quiz' => $quiz->id,
-                'id_soal' => $soal->id,
-                'jawaban' => $jawabanTerpilih,
-                'benar'   => $isCorrect,
+                'id_soal'  => $soal->id,
+                'jawaban'  => $jawaban,
+                'benar'    => $isCorrect,
             ]);
 
-            // Hitung jawaban benar
             if ($isCorrect) {
                 $benar++;
             }
         }
 
-        // Hitung nilai
-        $nilai = ($totalSoal == 0) ? 0 : ($benar / $totalSoal) * 100;
-
-        // Simpan nilai quiz
-        NilaiQuiz::create([
-            'id_user' => Auth::id(),
-            'id_quiz' => $quiz->id,
-            'nilai'   => $nilai,
-        ]);
-
-        return redirect()->route('user.quiz.hasil', $quiz->id)
-            ->with('success', 'Quiz berhasil diselesaikan! Nilai Anda: ' . round($nilai, 2));
+        return redirect()->route('user.quiz.hasil', $quiz->id)->with('success', 'Nilai Anda: ' . $nilai);
     }
 
     // Melihat hasil
     public function hasil($id)
     {
-        $hasil = NilaiQuiz::where('id_user', Auth::id())
-            ->where('id_quiz', $id)
-            ->with('quiz')
-            ->firstOrFail();
+        $hasil = NilaiQuiz::where('id_user', Auth::id())->where('id_quiz', $id)->firstOrFail();
+        return view('hasil', compact('hasil'));
+    }
+    public function periksa_kode(Request $request)
+    {
+        $request->validate([
+            'kode' => 'required|string',
+        ]);
 
-        return view('user.quiz.hasil', compact('hasil'));
+        $quiz = Quiz::where('kode_quiz', $request->kode)->first();
+
+        return view('user.periksa_kode', compact('quiz'));
+
     }
 }

@@ -24,8 +24,8 @@ return new class extends Migration
             $table->foreign('id_quiz')->references('id')->on('quizzes')->onDelete('cascade');
             $table->foreign('id_soal')->references('id')->on('soal_quizzes')->onDelete('cascade');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
-        });
 
+        });
     }
 
     /**

@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SoalQuiz extends Model
 {
-    use HasFactory; 
-        protected $fillable = [
-        'quiz_id',
+    use HasFactory;
+    
+    protected $fillable = [
+        'id_quiz',
         'pertanyaan',
         'pilihan_a',
         'pilihan_b',
@@ -17,9 +18,10 @@ class SoalQuiz extends Model
         'pilihan_d',
         'jawaban_benar',
     ];
-public function quiz()
+
+    public function quiz()
     {
-        return $this->belongsTo(Quiz::class, 'quiz_id');
+        return $this->belongsTo(Quiz::class, 'id_quiz');
     }
 
     public function getPilihanAttribute()
