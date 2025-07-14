@@ -47,7 +47,7 @@ class QuizController extends Controller
         // Generate Kode quiz
         $lastQuiz = Quiz::latest('id')->first();
         $lastId    = $lastQuiz ? $lastQuiz->id : 0;
-        $kodeQuiz = 'TGS' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
+        $kodeQuiz = 'QZZ' . str_pad($lastId + 1, 4, '0', STR_PAD_LEFT);
         // Buat quiz
         $quiz = Quiz::create([
             'kode_quiz'    => $kodeQuiz,
@@ -89,7 +89,7 @@ class QuizController extends Controller
         $mapel = Mapel::all();
 
         $soal = $quiz->soal()->get();
-        return view('admin.quiz.edit', compact('tuga', 'soal', 'mapel'));
+        return view('admin.quiz.edit', compact('quiz','soal', 'mapel'));
     }
 
     public function update(Request $request, quiz $quiz) // Changed from $quiz to $quiz

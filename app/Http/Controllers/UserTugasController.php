@@ -27,56 +27,51 @@ class UserTugasController extends Controller
     }
 
     // Menyimpan hasil pengerjaan
-    public function submit(Request $request, $id)
-    {
-        $tugas = Tugas::with('soal')->findOrFail($id);
-        $jawabanUser = $request->jawaban;
-        $benar = 0;
-        $totalSoal = $tugas->soal->count(); 
+public function submit(Request $request, $id)
+{
+    $tugas = Tugas::with('soal')->findOrFail($id);
+    $jawabanUser = $request->jawaban ?? [];
+    $jumlahSoal = $tugas->soal->count();
+    $jawabanBenar = 0;
 
-        foreach ($tugas->soal as $soal) {
-            $jawaban = $jawabanUser[$soal->id] ?? null;
-            if ($jawaban && $jawaban === $soal->jawaban_benar) {
-                $benar++;
-            }
-        }
-
-        if ($totalSoal == 0) {
-            $nilai = 0;
-        } else {
-            $nilai = ($benar / $totalSoal) * 100;
-        }
-
-        NilaiTugas::create([
-            'id_user' => Auth::id(),
-            'id_tugas' => $tugas->id,
-            'nilai' => $nilai,
-        ]);
-        foreach ($tugas->soal as $soal) {
-        $jawaban   = $jawabanUser[$soal->id] ?? null;
+    foreach ($quiz->soal as $soal) {
+        $jawaban = $jawabanUser[$soal->id] ?? null;
         $isCorrect = $jawaban === $soal->jawaban_benar;
 
+        // Simpan jawaban walaupun kosong
         JawabanTugas::create([
-            'id_user'  => Auth::id(),
+            'id_user' => Auth::id(),
             'id_tugas' => $tugas->id,
-            'id_soal'  => $soal->id,
-            'jawaban'  => $jawaban,
-            'benar'    => $isCorrect,
+            'id_soal' => $soal->id,
+            'jawaban' => $jawaban,
+            'benar'   => $isCorrect,
         ]);
 
         if ($isCorrect) {
-            $benar++;
+            $jawabanBenar++;
         }
     }
 
-        return redirect()->route('user.tugas.hasil', $tugas->id)->with('success', 'Nilai Anda: ' . $nilai);
-    }
+    $nilai = $jumlahSoal > 0 ? ($jawabanBenar / $jumlahSoal) * 100 : 0;
+
+    NilaiTugas::updateOrCreate(
+        ['id_user' => Auth::id(), 'id_tugas' => $tugas->id],
+        ['nilai' => $nilai]
+    );
+
+    return redirect()->route('user.tugas.hasil', $tugas->id)->with('success', 'Nilai Anda: ' . round($nilai));
+}
 
 
-    // Melihat hasil
-    public function hasil($id)
-    {
-        $hasil = NilaiTugas::where('id_user', Auth::id())->where('id_tugas', $id)->firstOrFail();
-        return view('user.tugas.hasil', compact('hasil'));
-    }
+   public function hasil($id)
+{
+    $hasil = \App\Models\NilaiTugas::where('id_user', Auth::id())
+        ->where('id_tugas', $id)
+        ->firstOrFail();
+
+    return view('user.quiz.hasil', [
+        'nilai' => $hasil->nilai,
+        'id_tugas' => $id
+    ]);
+}
 }

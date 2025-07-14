@@ -77,16 +77,19 @@
 <body>
   <div class="container">
     <div class="result-wrapper">
-      @isset($nilai)
-        <div class="result-card text-center">
-          <h3>Hasil Quiz</h3>
-          <p>Nilai Anda: <strong>{{ $nilai }}</strong></p>
 
-          <div class="result-button">
+  <div class="result-card text-center">
+    <h3>Hasil Quiz</h3>
+@isset($nilai)
+  <p>Nilai Anda: <strong>{{ $nilai }}</strong></p>
+@endisset
+<div class="result-button">
             <a href="{{ route('user.quiz.index') }}">Kembali</a>
           </div>
-        </div>
-      @endisset
+  </div>
+
+
+
     </div>
   </div>
 

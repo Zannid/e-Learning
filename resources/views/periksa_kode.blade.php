@@ -77,11 +77,16 @@
           <div class="alert alert-success">
             <strong>Quiz berhasil ditemukan!</strong><br>
             Judul: {{ $quiz->judul }}<br>
-            Waktu: {{ $quiz->waktu_pengerjaan }} menit<br>
-            Batas Waktu: {{ \Carbon\Carbon::parse($quiz->batas_waktu)->translatedFormat('d F Y H:i') }}
+            Waktu: {{ $quiz->durasi }} menit<br>
+            Batas Waktu: {{ \Carbon\Carbon::parse($quiz->tenggat_waktu)->translatedFormat('d F Y H:i') }}
           </div>
           <div class="main-button">
-            <a href="{{ route('kerjakan', $quiz->kode_quiz) }}">Mulai Mengerjakan</a>
+            <div class="main-button">
+                @if(now()->gt($quiz->tenggat_waktu))
+                  <span class="badge bg-danger">Tenggat Berakhir</span>
+                @else
+                  <a href="{{ route('user.quiz.kerjakan', $quiz->id) }}" class="btn btn-primary">Kerjakan</a>
+                @endif
             <a href="{{ route('quizz') }}">Kembali</a>
           </div>
         @else

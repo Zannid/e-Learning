@@ -101,7 +101,7 @@ class FrontController extends Controller
             }
         }
 
-        return view('hasil', compact('nilai'));
+        return view('user.quiz.hasil', compact('nilai'));
     }
 
     public function tugass()

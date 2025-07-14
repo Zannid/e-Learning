@@ -51,6 +51,7 @@ Route::post('/quizz/periksa-kode', [FrontController::class, 'periksaKode'])->nam
 Route::get('/quizz/{kode}/kerjakan', [FrontController::class, 'kerjakan'])->name('kerjakan');
 
 
+
 // Admin only
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('guru', GuruController::class);

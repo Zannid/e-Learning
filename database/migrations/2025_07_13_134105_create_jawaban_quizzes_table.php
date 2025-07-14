@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_quiz');
             $table->unsignedBigInteger('id_soal');
-            $table->enum('jawaban', ['A', 'B', 'C', 'D']);
+            $table->enum('jawaban', ['A', 'B', 'C', 'D'])->nullable();
             $table->boolean('benar')->default(false);
             $table->timestamps();
             $table->foreign('id_quiz')->references('id')->on('quizzes')->onDelete('cascade');

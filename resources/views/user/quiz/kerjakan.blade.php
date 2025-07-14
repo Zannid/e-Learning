@@ -165,7 +165,6 @@
                     name="jawaban[{{ $soal->id }}]" 
                     value="{{ $opt }}" 
                     id="{{ $inputId }}"
-                    required
                   >
                   <label class="form-check-label" for="{{ $inputId }}">
                     <strong>{{ $opt }}.</strong> {{ $pilihan }}

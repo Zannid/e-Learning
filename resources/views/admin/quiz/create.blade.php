@@ -105,7 +105,7 @@
 
                 <div class="input-style-1">
                   <label>Tenggat Waktu</label>
-                  <input type="date" name="tenggat_waktu" required />
+                  <input type="datetime-local" name="tenggat_waktu" class="form-control" required>
                 </div>
 
                 <div class="col-12">
