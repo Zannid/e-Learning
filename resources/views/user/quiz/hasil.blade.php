@@ -12,6 +12,8 @@
   <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- Additional CSS Files -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
   <link rel="stylesheet" href="{{ asset('frontend/assets/css/fontawesome.css') }}">
   <link rel="stylesheet" href="{{ asset('frontend/assets/css/templatemo-scholar.css') }}">
   <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.css') }}">
@@ -77,21 +79,33 @@
 <body>
   <div class="container">
     <div class="result-wrapper">
+      <div class="result-card text-center">
+        <h3><i class="fas fa-check-circle text-success me-2"></i> Hasil Quiz Anda</h3>
 
-  <div class="result-card text-center">
-    <h3>Hasil Quiz</h3>
-@isset($nilai)
-  <p>Nilai Anda: <strong>{{ $nilai }}</strong></p>
-@endisset
-<div class="result-button">
-            <a href="{{ route('user.quiz.index') }}">Kembali</a>
+        @isset($nilai)
+         <div class="circular-score mt-4 mb-4">
+          <div style="width: 120px; height: 120px; margin: auto; border: 6px solid #a779e9; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+            <span style="font-weight: 700; font-size: 24px; color: #6b21a8;">{{ $nilai }}</span>
           </div>
-  </div>
+        </div>
 
+        @endisset
 
+        @isset($benar)
+          <p><i class="fas fa-thumbs-up text-success me-1"></i> Jawaban Benar: <strong class="text-success">{{ $benar }}</strong></p>
+        @endisset
 
+        @isset($salah)
+          <p><i class="fas fa-times-circle text-danger me-1"></i> Jawaban Salah: <strong class="text-danger">{{ $salah }}</strong></p>
+        @endisset
+
+        <div class="result-button mt-4">
+          <a href="{{ route('user.quizz') }}"><i class="fas fa-arrow-left me-1"></i> Kembali</a>
+        </div>
+      </div>
     </div>
   </div>
+
 
   @include('layouts.component-frontend.footer')
 

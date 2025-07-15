@@ -57,7 +57,7 @@
                 @foreach(['A', 'B', 'C', 'D'] as $option)
                   <div>
                     <input type="radio" name="jawaban_benar[{{ $i }}]" value="{{ $option }}" required>
-                    {{ $option }} <input type="text" name="opsi[{{ $i }}][{{ $option }}]" placeholder="Jawaban {{ $option }}" required>
+                    {{ $option }} <input type="text" class="form-control" name="opsi[{{ $i }}][{{ $option }}]" placeholder="Jawaban {{ $option }}" required>
                   </div>
                 @endforeach
               </div>

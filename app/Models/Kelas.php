@@ -10,4 +10,14 @@ class Kelas extends Model
     use HasFactory;
     protected $fillable = ['id','kelas','jurusan','create_at','update_at'] ;
     public $timestamps = true;
+
+    public function users()
+{
+    return $this->hasMany(User::class, 'id_kelas');
+}
+public function tahunAjaran()
+{
+    return $this->belongsTo(TahunAjaran::class, 'id_tahun_ajaran');
+}
+
 }

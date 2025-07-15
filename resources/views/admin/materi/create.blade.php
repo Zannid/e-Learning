@@ -36,13 +36,21 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- input style start -->
-                        <form action="{{route('materi.store')}}" method="post">
+                        <form action="{{route('materi.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                         <div class="card-style mb-30">
                             <h6 class="mb-25">Materi</h6>
                             <div class="input-style-1">
                                 <label>Judul</label>
                                 <input type="text"  placeholder="Judul" name="judul" />
+                            </div>
+                             <!-- foto -->
+                            <div class="mb-3">
+                                <label for="foto">Foto</label>
+                                <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto">
+                                @error('foto')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <!-- end input -->
                             <div class="input-style-1">

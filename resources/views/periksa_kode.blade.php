@@ -87,14 +87,14 @@
                 @else
                   <a href="{{ route('user.quiz.kerjakan', $quiz->id) }}" class="btn btn-primary">Kerjakan</a>
                 @endif
-            <a href="{{ route('quizz') }}">Kembali</a>
+            <a href="{{ route('user.quizz') }}">Kembali</a>
           </div>
         @else
           <div class="alert alert-danger">
             <strong>Kode quiz tidak ditemukan. Silakan coba lagi!</strong>
           </div>
           <div class="main-button">
-            <a href="{{ route('quizz') }}">Kembali</a>
+            <a href="{{ route('user.quizz') }}">Kembali</a>
           </div>
         @endisset
       </div>

@@ -49,6 +49,9 @@
                                             <th class="lead-info">
                                                 <h6>Judul</h6>
                                             </th>
+                                             <th class="lead-info">
+                                                <h6>Foto</h6>
+                                            </th>
                                             <th class="lead-email">
                                                 <h6>Isi Materi</h6>
                                             </th>
@@ -63,7 +66,7 @@
                                             </th>
                                         </tr>
                                         <!-- end table row-->
-                                    </thead>
+                                     </thead>
                                     <tbody>
                                         @php $no=1; @endphp
                                         @foreach ($materi as $data)
@@ -79,7 +82,10 @@
                                                     <p>{{ $data->judul }}</p>
                                                 </td>
                                                 <td class="min-width">
-                                                    <p>{{ $data->isi_materi }}</p>
+                                              <img src="{{ asset('storage/materi/' . $data->foto)}}" width="50" >
+                                            </td>
+                                                <td class="min-width">
+                                                    <p>{{ Str::limit($data->isi_materi, 100) }}</p>
                                                 </td>
                                                 <td class="min-width">
                                                     <p>{{ $data->mapel->nama_mapel }}</p>

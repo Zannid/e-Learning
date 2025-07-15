@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class UserQuizController extends Controller
 {
+    // public function __construct(){
+    //     $this->middleware('auth');
+    // }
     public function index()
     {
         $quiz = Quiz::all();
@@ -65,15 +68,32 @@ class UserQuizController extends Controller
     // Melihat hasil
     public function hasil($id)
 {
-    $hasil = \App\Models\NilaiQuiz::where('id_user', Auth::id())
+    $userId = Auth::id();
+
+    $hasil = NilaiQuiz::where('id_user', $userId)
         ->where('id_quiz', $id)
         ->firstOrFail();
 
+    // Ambil hanya jawaban terakhir per soal dari quiz ini oleh user ini
+    $jawabanTerakhirPerSoal = JawabanQuiz::where('id_user', $userId)
+        ->where('id_quiz', $id)
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->unique('id_soal'); // hanya ambil satu jawaban terbaru per soal
+
+    $jumlahBenar = $jawabanTerakhirPerSoal->where('benar', true)->count();
+    $jumlahSalah = $jawabanTerakhirPerSoal->where('benar', false)->count();
+
     return view('user.quiz.hasil', [
+        'quiz_id' => $id,
         'nilai' => $hasil->nilai,
-        'quiz_id' => $id
+        'benar' => $jumlahBenar,
+        'salah' => $jumlahSalah,
+        'jawaban_terakhir' => $jawabanTerakhirPerSoal,
     ]);
 }
+
+
 
 
 

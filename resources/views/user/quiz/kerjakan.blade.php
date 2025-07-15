@@ -13,108 +13,134 @@
 
   @php $durationInSeconds = $quiz->durasi * 60; @endphp
 
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #f5f5f5;
-    }
-    .container {
-      background-color: #fff;
-      border-radius: 15px;
-      padding: 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      margin-top: 40px;
-    }
-    .quiz-header {
-      background: linear-gradient(135deg, #7e5bef, #a779e9);
-      color: #fff;
-      padding: 25px 30px;
-      border-radius: 16px;
-      margin-bottom: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: relative;
-    }
-    .quiz-header h2 {
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      font-size: 24px;
-    }
-    .quiz-header h4 {
-      margin: 0;
-      color: #fff;
-      font-size: 20px;
-      font-weight: 600;
-    }
-    .quiz-header p {
-      font-size: 14px;
-      margin: 0;
-      opacity: 0.95;
-    }
-    #countdown {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 15px;
-      background-color: #f3e8ff;
-      color: #6f42c1;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-weight: 600;
-      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
-    }
-    .info-note {
-      font-size: 14px;
-      color: red;
-      margin-top: 5px;
-    }
-    .card.question-card {
-      border: none;
-      border-left: 4px solid #7e5bef;
-      margin-bottom: 25px;
-      transition: all 0.3s ease;
-    }
-    .card.question-card:hover {
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-    .form-check {
-      background-color: #f9f5ff;
-      border: 1px solid #e0d4ff;
-      border-radius: 6px;
-      padding: 10px 15px;
-      margin-bottom: 10px;
-      cursor: pointer;
-    }
-    .form-check-input:checked {
-      background-color: #7e5bef;
-      border-color: #7e5bef;
-    }
-    .submit-btn {
-      background: linear-gradient(135deg, #7e5bef, #a779e9);
-      border: none;
-      color: white;
-      padding: 12px 40px;
-      font-weight: 600;
-      border-radius: 30px;
-      transition: 0.3s;
-    }
-    .submit-btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-    }
-    .quiz-note {
-      font-size: 13px;
-      color: #ffe6e6;
-      margin-top: 10px;
-      font-style: italic;
-      opacity: 0.9;
-      padding-top: 8px;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f2ecfa;
+}
 
-  </style>
+.container {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  margin-top: 50px;
+  position: relative;
+}
+
+.quiz-header {
+  background: linear-gradient(to right, #a779e9, #c3b3f5);
+  color: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.quiz-header h2 {
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.quiz-header h4 {
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.quiz-note {
+  font-size: 13px;
+  font-style: italic;
+  color: #ffe6e6;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 10px;
+}
+
+#countdown {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  background-color: #fff;
+  color: #7e5bef;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  border: 2px solid #d2b9ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 0 10px rgba(126, 91, 239, 0.2);
+  transition: all 0.3s ease;
+}
+
+#countdown i {
+  color: #a779e9;
+}
+
+.question-card {
+  display: none;
+  border-left: 4px solid #a779e9;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.question-card.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(15px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+.option-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background-color: #f7f0ff;
+  border: 2px solid #e0d4ff;
+  padding: 14px 20px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.option-btn:hover {
+  background-color: #ece0ff;
+  transform: scale(1.01);
+}
+
+.option-btn.selected {
+  background-color: #d9c4ff;
+  border-color: #a779e9;
+  font-weight: 600;
+  color: #5c2fd4;
+  box-shadow: 0 0 8px rgba(167, 121, 233, 0.3);
+}
+
+.submit-btn {
+  background: linear-gradient(to right, #7e5bef, #a779e9);
+  border: none;
+  color: white;
+  padding: 12px 35px;
+  font-weight: 600;
+  border-radius: 30px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+</style>
+
 </head>
 <body>
 
@@ -127,7 +153,11 @@
         <p>{{ $quiz->deskripsi }}</p>
       @endif
 
-      <div id="countdown">Waktu Tersisa: <span id="time">--:--</span></div>
+      <div id="countdown">
+  <i class="fas fa-hourglass-half"></i>
+  <span id="time">--:--</span>
+</div>
+
 
       <div class="quiz-note">
         * Quiz akan otomatis diselesaikan jika waktu habis.
@@ -143,65 +173,76 @@
       <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form method="POST" action="{{ route('user.quiz.submit', $quiz->id) }}" id="quizForm">
-      @csrf
-      @foreach ($quiz->soal as $soal)
-        <div class="card question-card">
-          <div class="card-body">
-            <h5 class="card-title text-primary">Soal {{ $loop->iteration }}</h5>
-            <p class="card-text">{{ $soal->pertanyaan }}</p>
+   <form method="POST" action="{{ route('user.quiz.submit', $quiz->id) }}" id="quizForm">
+  @csrf
+  @foreach ($quiz->soal as $soal)
+    <div class="card question-card @if($loop->first) active @endif" data-index="{{ $loop->index }}">
+      <div class="card-body">
+        <h5 class="card-title text-primary">Soal {{ $loop->iteration }}</h5>
+        <p class="card-text">{{ $soal->pertanyaan }}</p>
 
-            @foreach (['A', 'B', 'C', 'D'] as $opt)
-              @php
-                $inputId = 'soal_' . $soal->id . '_' . $opt;
-                $pilihan = $soal->{'pilihan_' . strtolower($opt)};
-              @endphp
+        @foreach (['A', 'B', 'C', 'D'] as $opt)
+          @php
+            $inputId = 'soal_' . $soal->id . '_' . $opt;
+            $pilihan = $soal->{'pilihan_' . strtolower($opt)};
+          @endphp
 
-              @if($pilihan)
-                <div class="form-check">
-                  <input 
-                    class="form-check-input" 
-                    type="radio" 
-                    name="jawaban[{{ $soal->id }}]" 
-                    value="{{ $opt }}" 
-                    id="{{ $inputId }}"
-                  >
-                  <label class="form-check-label" for="{{ $inputId }}">
-                    <strong>{{ $opt }}.</strong> {{ $pilihan }}
-                  </label>
-                </div>
-              @endif
-            @endforeach
+          @if($pilihan)
+            <button 
+              type="button"
+              class="option-btn"
+              data-soal-id="{{ $soal->id }}"
+              data-value="{{ $opt }}"
+            >
+              <strong>{{ $opt }}.</strong> {{ $pilihan }}
+            </button>
 
-            @error("jawaban.{$soal->id}")
-              <div class="text-danger mt-1">{{ $message }}</div>
-            @enderror
-          </div>
-        </div>
-      @endforeach
+            <input 
+              type="radio" 
+              name="jawaban[{{ $soal->id }}]" 
+              value="{{ $opt }}" 
+              id="{{ $inputId }}"
+              style="display: none;"
+            >
+          @endif
+        @endforeach
 
-      <div class="text-center mt-4">
-        <button type="submit" class="submit-btn">
-          <i class="fas fa-paper-plane me-2"></i> Selesaikan Quiz
-        </button>
-      </div>
-    </form>
+      </div> <!-- end of card-body -->
+    </div> <!-- end of card -->
+  @endforeach
+
+  <div class="text-center mt-4">
+    <button type="submit" class="submit-btn">
+      <i class="fas fa-paper-plane me-2"></i> Selesaikan Quiz
+    </button>
+  </div>
+</form> <!-- ✅ form ditutup di sini -->
+
   </div>
 
   <script>
   const quizId = {{ $quiz->id }};
-  const quizDuration = {{ $durationInSeconds }}; // dalam detik
+  const quizDuration = {{ $durationInSeconds }};
   const countdownEl = document.getElementById('time');
   const quizForm = document.getElementById('quizForm');
 
   const startKey = 'quiz_' + quizId + '_start';
-  let startTime = localStorage.getItem(startKey);
+  const answerKey = 'quiz_' + quizId;
 
-  // Set waktu mulai jika belum ada
-  if (!startTime) {
-    startTime = Date.now();
-    localStorage.setItem(startKey, startTime);
-  }
+  // Ambil jawaban yang pernah disimpan
+let answers = JSON.parse(localStorage.getItem(answerKey)) || {};
+let startTime = localStorage.getItem(startKey);
+
+// Jika belum mulai atau user ingin memulai ulang, reset semuanya
+const quizRestarted = !startTime || Object.keys(answers).length === 0;
+
+if (quizRestarted) {
+  localStorage.removeItem(answerKey);
+  localStorage.removeItem(startKey);
+  answers = {};
+  startTime = Date.now();
+  localStorage.setItem(startKey, startTime);
+}
 
   const endTime = parseInt(startTime) + quizDuration * 1000;
 
@@ -211,9 +252,9 @@
 
     if (timeLeft <= 0) {
       countdownEl.textContent = "00:00";
-      localStorage.removeItem('quiz_' + quizId);
+      localStorage.removeItem(answerKey);
       localStorage.removeItem(startKey);
-      quizForm.submit(); // submit otomatis saat waktu habis
+      quizForm.submit();
     } else {
       const m = String(Math.floor(timeLeft / 60)).padStart(2, '0');
       const s = String(timeLeft % 60).padStart(2, '0');
@@ -224,33 +265,82 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  // Simpan jawaban user ke localStorage
-  let answers = {};
-  document.querySelectorAll('input[type="radio"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-      answers[this.name] = this.value;
-      localStorage.setItem('quiz_' + quizId, JSON.stringify(answers));
+  // Navigasi soal satu per satu
+  const cards = document.querySelectorAll('.question-card');
+  let currentIndex = 0;
+
+  function showQuestion(index) {
+    cards.forEach(card => card.classList.remove('active'));
+    if (cards[index]) cards[index].classList.add('active');
+  }
+
+  showQuestion(currentIndex);
+
+  // Tombol pilihan jawaban
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const soalId = this.dataset.soalId;
+      const value = this.dataset.value;
+
+      // Simpan ke input radio
+      const radio = document.querySelector(`input[name="jawaban[${soalId}]"][value="${value}"]`);
+      if (radio) radio.checked = true;
+
+      // Simpan ke localStorage
+      answers[`jawaban[${soalId}]`] = value;
+      localStorage.setItem(answerKey, JSON.stringify(answers));
+
+      // Tambah style selected
+      const siblings = this.parentNode.querySelectorAll('.option-btn');
+      siblings.forEach(s => s.classList.remove('selected'));
+      this.classList.add('selected');
+
+      // Pindah ke soal berikutnya
+      setTimeout(() => {
+        currentIndex++;
+        if (currentIndex < cards.length) {
+          showQuestion(currentIndex);
+        } else {
+          quizForm.submit();
+        }
+      }, 400);
     });
   });
 
-  // Load jawaban dari localStorage
-  window.addEventListener('load', () => {
-    const saved = localStorage.getItem('quiz_' + quizId);
-    if (saved) {
-      const answers = JSON.parse(saved);
-      for (let name in answers) {
-        const radio = document.querySelector(`input[name="${name}"][value="${answers[name]}"]`);
-        if (radio) radio.checked = true;
+  // Load jawaban sebelumnya
+window.addEventListener('load', () => {
+  if (!quizRestarted) {
+    for (let name in answers) {
+      const value = answers[name];
+      const radio = document.querySelector(`input[name="${name}"][value="${value}"]`);
+      if (radio) {
+        radio.checked = true;
+        const soalId = name.match(/\d+/)[0];
+        const btn = document.querySelector(`.option-btn[data-soal-id="${soalId}"][data-value="${value}"]`);
+        if (btn) btn.classList.add('selected');
       }
     }
-  });
+  }
+});
 
-  // Bersihkan data localStorage saat submit
+
+  // Flag agar tahu apakah form sudah disubmit
+  quizForm.submitted = false;
   quizForm.addEventListener('submit', () => {
-    localStorage.removeItem('quiz_' + quizId);
+    quizForm.submitted = true;
+    localStorage.removeItem(answerKey);
     localStorage.removeItem(startKey);
   });
+
+  // Bersihkan jika user keluar halaman sebelum submit
+  window.addEventListener('beforeunload', () => {
+    if (!quizForm.submitted) {
+      localStorage.removeItem(startKey);
+    }
+  });
 </script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <script src="{{ asset('frontend/vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>

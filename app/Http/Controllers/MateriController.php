@@ -45,9 +45,18 @@ class MateriController extends Controller
 
         $materi             = new Materi();
         $materi->judul      = $request->judul;
+        $materi->foto       = $request->foto;
         $materi->isi_materi = $request->isi_materi;
         $materi->id_mapel   = $request->id_mapel;
         $materi->id_kelas   = $request->id_kelas;
+
+    if ($request->hasFile('foto')) {
+        $img  = $request->file('foto');
+        $name = rand(1000, 9999) . $img->getClientOriginalName();
+        $img->move('storage/materi', $name);
+        $materi->foto = $name;
+    }
+
 
         $materi->save();
 
@@ -80,21 +89,34 @@ class MateriController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'judul' => 'required',
+            'judul'      => 'required',
             'isi_materi' => 'required',
-            'id_mapel' => 'required',
-            'id_kelas' => 'required',
+            'id_mapel'   => 'required',
+            'id_kelas'   => 'required',
         ]);
 
-        $materi        = Materi::findOrFail($id);
-        $materi->judul = $request->judul;
+        $materi             = Materi::findOrFail($id);
+        $materi->judul      = $request->judul;
         $materi->isi_materi = $request->isi_materi;
-        $materi->id_mapel = $request->id_mapel;
-        $materi->id_kelas = $request->id_kelas;
+        $materi->id_mapel   = $request->id_mapel;
+        $materi->id_kelas   = $request->id_kelas;
+
+      if ($request->hasFile('foto')) {
+    if ($materi->foto && file_exists(public_path('storage/materi/' . $materi->foto))) {
+        unlink(public_path('storage/materi/' . $materi->foto));
+    }
+
+    $img  = $request->file('foto');
+    $name = time() . '_' . $img->getClientOriginalName();
+    $img->move(public_path('storage/materi'), $name);
+    $materi->foto = $name;
+}
+
+
 
         $materi->save();
 
-        return redirect()->route('materi.index')->with('success', 'Materi berhasil diupdate.');
+        return redirect()->route('materi.index')->with('success', 'Materi berhasil diup date.');
 
     }
 
@@ -103,9 +125,9 @@ class MateriController extends Controller
      */
     public function destroy(string $id)
     {
-     $materi = Materi::findOrFail($id);
-    $materi->delete();
-    return redirect()->route('materi.index')->with('success', 'Data berhasil dihapus');
+        $materi = Materi::findOrFail($id);
+        $materi->delete();
+        return redirect()->route('materi.index')->with('success', 'Data berhasil dihapus');
 
     }
 }

@@ -18,6 +18,7 @@
                 $table->string('kode_tugas')->unique();
                 $table->string('judul');
                 $table->integer('jumlah_soal');
+                $table->string('foto')->nullable();
                 $table->unsignedBigInteger('id_mapel');
                 $table->timestamp('tenggat_waktu')->nullable();
                 $table->timestamps();

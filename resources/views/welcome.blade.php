@@ -19,6 +19,14 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.css')}}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css')}}">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css')}}"/>
+    <style>
+      .materi-image {
+  width: 100%;
+  height: 300px; /* atau 180px sesuai kebutuhan */
+  object-fit: cover;
+  border-radius: 16px;
+}
+    </style>
 <!--
 
 TemplateMo 586 Scholar
@@ -103,55 +111,7 @@ https://templatemo.com/tm-586-scholar
     </div>
   </div>
 
-  <div class="services section" id="services">
-    <div class="container">
-      <div class="row">
-        @foreach($quiz as $data)
-        <div class="col-lg-4 col-md-6">
-          <div class="service-item">
-            <div class="main-content">
-              <h4>{{ $data->judul }}</h4>
-              <p>{{ $data->jumlah_soal}}</p>
-              <p>Waktu {{ $data->waktu_pengerjaan}}mnt</p>
-              <p>Jumlah Soal {{ $data->jumlah_soal}}</p>
-              <div class="main-button">
-                <a href="#">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        @endforeach
-        <div class="col-lg-4 col-md-6">
-          <div class="service-item">
-            <div class="icon">
-              <img src="{{ asset('frontend/assets/images/service-02.png')}}" alt="short courses">
-            </div>
-            <div class="main-content">
-              <h4>Short Courses</h4>
-              <p>You can browse free templates based on different tags such as digital marketing, etc.</p>
-              <div class="main-button">
-                <a href="#">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="service-item">
-            <div class="icon">
-              <img src="{{ asset('frontend/assets/images/service-03.png')}}" alt="web experts">
-            </div>
-            <div class="main-content">
-              <h4>Web Experts</h4>
-              <p>You can start learning HTML CSS by modifying free templates from our website too.</p>
-              <div class="main-button">
-                <a href="#">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <div class="section about-us">
     <div class="container">
@@ -248,7 +208,18 @@ https://templatemo.com/tm-586-scholar
     <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
         <div class="events_item">
             <div class="thumb">
-                <a href="#"><img src="{{ asset('frontend/assets/images/course-01.jpg')}}" alt=""></a>
+                <a href="{{ route('isi', $data->id) }}"><div class="card">
+                  @if($data->foto)
+                  <img src="{{ asset('/storage/materi/' . $data->foto) }}" class="materi-image" alt="{{ $data->judul }}">
+                  @else
+                  <br><br><br><br><br><br>
+                  <center>
+                    <span>Tidak ada Foto</span>
+                  </center>
+                  <br><br><br><br>
+                  <br>
+                  @endif
+                </div></a>
                 <span class="category">
                     {{ $data->mapel->nama_mapel }}
                 </span>
@@ -275,26 +246,26 @@ https://templatemo.com/tm-586-scholar
             <div class="row">
               <div class="col-lg-3 col-md-6">
                 <div class="counter">
-                  <h2 class="timer count-title count-number" data-to="150" data-speed="1000"></h2>
-                   <p class="count-text ">Happy Students</p>
+                  <h2 class="timer count-title count-number" data-to="{{ \App\Models\Materi::count() }}" data-speed="1000"></h2>
+                   <p class="count-text ">Materi</p>
                 </div>
               </div>
               <div class="col-lg-3 col-md-6">
                 <div class="counter">
-                  <h2 class="timer count-title count-number" data-to="804" data-speed="1000"></h2>
-                  <p class="count-text ">Course Hours</p>
+                  <h2 class="timer count-title count-number" data-to="{{ \App\Models\User::count() }}" data-speed="1000"></h2>
+                  <p class="count-text ">Pengguna</p>
                 </div>
               </div>
               <div class="col-lg-3 col-md-6">
                 <div class="counter">
-                  <h2 class="timer count-title count-number" data-to="50" data-speed="1000"></h2>
-                  <p class="count-text ">Employed Students</p>
+                  <h2 class="timer count-title count-number" data-to="{{ \App\Models\Tugas::count() }}" data-speed="1000"></h2>
+                  <p class="count-text ">Penugasan</p>
                 </div>
               </div>
               <div class="col-lg-3 col-md-6">
                 <div class="counter end">
-                  <h2 class="timer count-title count-number" data-to="15" data-speed="1000"></h2>
-                  <p class="count-text ">Years Experience</p>
+                  <h2 class="timer count-title count-number" data-to="{{ \App\Models\Quiz::count() }}" data-speed="1000"></h2>
+                  <p class="count-text ">Quiz</p>
                 </div>
               </div>
             </div>
@@ -311,8 +282,8 @@ https://templatemo.com/tm-586-scholar
         <div class="col-lg-3 col-md-6">
           <div class="team-member">
             <div class="main-content">
-              <img src="{{ asset('frontend/assets/images/member-01.jpg')}}" alt="">
-              <span class="category">ggs</span>
+              <img src="{{ asset('storage/guru/' . $data->foto) }}" alt="">
+              <span class="category">Guru</span>
               <h4>{{ $data->name }}</h4>
               <ul class="social-icons">
                 <li><a href="#"><i class="fab fa-facebook"></i></a></li>

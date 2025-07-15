@@ -111,4 +111,8 @@ class FrontController extends Controller
 
         return view('tugass', compact('tugass', 'kelas'));
     }
+     public function isi($id){
+        $materi = Materi::findOrFail($id);
+        return view('isi', compact('materi'));
+    }
 }

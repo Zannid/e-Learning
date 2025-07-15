@@ -7,7 +7,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6">
                         <div class="title">
-                            <h2>Data quiz</h2>
+                            <h2>Data Tugas</h2>
                         </div>
                     </div>
                     <!-- end col -->
@@ -47,7 +47,7 @@
                                                 <h6>No</h6>
                                             </th>
                                             <th class="lead-email">
-                                                <h6>Kode quiz</h6>
+                                                <h6>Kode Tugas</h6>
                                             </th>
                                             <th class="lead-phone">
                                                 <h6>Judul</h6>

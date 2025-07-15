@@ -95,7 +95,7 @@
         <h1 class="text-white">quiz</h1>
       </div>
     </div>
-  </div>
+  </div>  
 </div>
 
 <!-- LIST TUGAS -->

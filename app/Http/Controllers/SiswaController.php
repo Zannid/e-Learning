@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Kelas;
+use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\Hash;
 
 class SiswaController extends Controller
@@ -29,7 +31,9 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        return view('admin.siswa.create');
+        $kelas= Kelas::all();
+        $tahun = TahunAjaran::all();
+        return view('admin.siswa.create', compact('kelas', 'tahun'));
     }
 
     /**
@@ -38,18 +42,28 @@ class SiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $siswa = new User();
-        $siswa->name = $request->name;
-        $siswa->email = $request->email;
-        $siswa->password = Hash::make($request->password);
-        $siswa->role = 'siswa';
-        $siswa->save();
-      
+   public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6|confirmed',
+        'id_kelas' => 'required|exists:kelas,id',
+        'id_tahun_ajaran' => 'required|exists:tahun_ajarans,id'
+    ]);
 
-        return redirect()->route('siswa.index')->with('success', 'Data Berhasil Ditambahkan');
-    }
+    $siswa = new User();
+    $siswa->name = $request->name;
+    $siswa->email = $request->email;
+    $siswa->password = Hash::make($request->password);
+    $siswa->id_kelas = $request->id_kelas;
+    $siswa->id_tahun_ajaran = $request->id_tahun_ajaran;
+    $siswa->role = 'siswa';
+    $siswa->save();
+
+    return redirect()->route('siswa.index')->with('success', 'Data Berhasil Ditambahkan');
+}
+
 
     /**
      * Display the specified resource.

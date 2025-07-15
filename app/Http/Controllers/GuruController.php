@@ -46,9 +46,20 @@ class GuruController extends Controller
         $guru = new User();
         $guru->name = $request->name;
         $guru->email = $request->email;
+        $guru->foto     = $request->foto;
         $guru->password = Hash::make($request->password);
-        $guru->role = 'guru';
-        $guru->save();
+        $guru->role     = 'guru';
+
+        if ($request->hasFile('foto')) {
+
+            $img  = $request->file('foto');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('storage/guru', $name);
+            $guru->foto = $name;
+        }
+
+            $guru->save();
+
       
 
         return redirect()->route('guru.index')->with('success', 'Data Berhasil Ditambahkan');
@@ -96,10 +107,20 @@ class GuruController extends Controller
         $guru = User::findOrFail($id);
         $guru->name = $request->name;
         $guru->email = $request->email;
+        $guru->foto = $request->foto;
+
 
         if ($request->filled('password')) {
             $guru->password = Hash::make($request->password);
         }
+        if ($request->hasFile('foto')) {
+
+            $img  = $request->file('foto');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('storage/guru', $name);
+            $guru->foto = $name;
+        }
+
 
         $guru->save();
 

@@ -5,7 +5,8 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="index.html" class="logo">
-                        <h1>Scholar</h1>
+                        <h1>eSA</h1>
+                        
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Serach Start ***** -->
@@ -19,11 +20,11 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                       <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                      <li class="scroll-to-section"><a href="{{ route('quizz')}}">Quiz</a></li>
+                      <li class="scroll-to-section"><a href="{{ route('user.quizz')}}">Quiz</a></li>
                       <li class="scroll-to-section"><a href="#courses">Materi</a></li>
-                      <li class="scroll-to-section"><a href="#team">Team</a></li>
+                      <li class="scroll-to-section"><a href="{{ route('user.tugas.index')}}">Tugas</a></li>
                       <li class="scroll-to-section"><a href="#events">Events</a></li>
-                      <li class="scroll-to-section"><a href="#contact">Register Now!</a></li>
+                      <li class="scroll-to-section"><a href="{{ route('login')}}">Login</a></li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>

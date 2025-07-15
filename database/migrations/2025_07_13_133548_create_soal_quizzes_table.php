@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_quiz');
             $table->text('pertanyaan');
+            $table->string('foto')->nullable();
             $table->string('pilihan_a', 255);
             $table->string('pilihan_b', 255);
             $table->string('pilihan_c', 255);

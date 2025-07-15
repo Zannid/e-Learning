@@ -16,6 +16,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'foto',
         'role',
     ];
 
@@ -43,4 +44,14 @@ class User extends Authenticatable
     {
         return $this->role === 'siswa';
     }
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas');
+    }
+
+    public function tahunAjaran()
+    {
+        return $this->belongsTo(TahunAjaran::class, 'id_tahun_ajaran');
+    }
+
 }

@@ -65,7 +65,44 @@
                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             
                         </div>
-                      </div>
+                      </div><div class="col-12 mt-2">
+  <div class="input-style-1">
+    <label>Kelas</label>
+    <select name="id_kelas" class="form-control @error('id_kelas') is-invalid @enderror" required>
+      <option disabled selected>-- Pilih Kelas --</option>
+      @foreach($kelas as $k)
+        <option value="{{ $k->id }}" {{ old('id_kelas') == $k->id ? 'selected' : '' }}>
+          {{ $k->kelas }}
+        </option>
+      @endforeach
+    </select>
+    @error('id_kelas')
+      <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+      </span>
+    @enderror
+  </div>
+</div>
+
+<div class="col-12 mt-2">
+  <div class="input-style-1">
+    <label>Tahun Ajaran</label>
+    <select name="id_tahun_ajaran" class="form-control @error('id_tahun_ajaran') is-invalid @enderror" required>
+      <option disabled selected>-- Pilih Tahun Ajaran --</option>
+      @foreach($tahun as $t)
+        <option value="{{ $t->id }}" {{ old('id_tahun_ajaran') == $t->id ? 'selected' : '' }}>
+          {{ $t->nama }}
+        </option>
+      @endforeach
+    </select>
+    @error('id_tahun_ajaran')
+      <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+      </span>
+    @enderror
+  </div>
+</div>
+
                       <!-- end col -->
               
                       <!-- end col -->

@@ -30,15 +30,20 @@ class UserTugasController extends Controller
 public function submit(Request $request, $id)
 {
     $tugas = Tugas::with('soal')->findOrFail($id);
+
+    // Cek tenggat waktu
+    if (now()->gt($tugas->tenggat_waktu)) {
+        return redirect()->route('user.tugas.index')->with('error', 'Tugas sudah melewati tenggat waktu.');
+    }
+
     $jawabanUser = $request->jawaban ?? [];
     $jumlahSoal = $tugas->soal->count();
     $jawabanBenar = 0;
 
-    foreach ($quiz->soal as $soal) {
+    foreach ($tugas->soal as $soal) {
         $jawaban = $jawabanUser[$soal->id] ?? null;
         $isCorrect = $jawaban === $soal->jawaban_benar;
 
-        // Simpan jawaban walaupun kosong
         JawabanTugas::create([
             'id_user' => Auth::id(),
             'id_tugas' => $tugas->id,
@@ -61,6 +66,7 @@ public function submit(Request $request, $id)
 
     return redirect()->route('user.tugas.hasil', $tugas->id)->with('success', 'Nilai Anda: ' . round($nilai));
 }
+
 
 
    public function hasil($id)

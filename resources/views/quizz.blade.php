@@ -14,33 +14,174 @@
 
 
     <!-- Additional CSS Files -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/fontawesome.css')}}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/templatemo-scholar.css')}}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.css')}}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.css')}}">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css')}}"/>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
-    <div class="services section" id="services">
-      <div class="container">
-        <div class="row justify-content-center">
+<style>
+  /* Navbar */
+  .navbar-custom {
+    background: linear-gradient(135deg, #7e5bef, #a779e9);
+    border-radius: 0 0 25px 25px;
+    box-shadow: 0 4px 15px rgba(126, 91, 239, 0.25);
+  }
 
-          <div class="col-lg-4 col-md-6">
-            <div class="service-item">
-              <div class="main-content">
-                <form method="POST" action="{{ route('periksaKode') }}" id="periksaForm">
-                  @csrf
-                  <h4>Masukan Code Quiz</h4>
-                  <input name="kode" type="text" class="form-control" required>
-                  <p></p>
-                  <p></p>
-                  <div class="main-button">
-                    <button type="submit">Periksa Kode</button>
-                  </div>
-               </form>
-              </div>
+  .navbar-custom {
+  margin-bottom: 0; /* default */
+}
+
+
+  .search-box {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    padding: 5px 15px;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(5px);
+  }
+
+  .search-box input {
+    border: none;
+    background: transparent;
+    outline: none;
+    color: white;
+    width: 150px;
+    margin-left: 8px;
+  }
+
+  .search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .nav-link {
+    font-weight: 500;
+    color: white !important;
+    transition: 0.2s;
+  }
+
+  .nav-link:hover {
+    color: #ffe8f8 !important;
+  }
+
+  /* Main Section */
+.services.section {
+  padding-top: 40px !important; /* dari 100px jadi 40px */
+  min-height: auto; /* hilangkan tinggi minimum */
+  background: linear-gradient(120deg, #f8f5ff, #ffffff);
+  display: flex;
+  align-items: center;
+}
+
+
+  .form-card {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(126, 91, 239, 0.15);
+    text-align: center;
+    transition: 0.3s;
+  }
+
+  .form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 40px rgba(126, 91, 239, 0.25);
+  }
+
+  .form-card h4 {
+    font-weight: 700;
+    color: #7e5bef;
+    margin-bottom: 25px;
+  }
+
+  .form-card input.form-control {
+    border-radius: 12px;
+    border: 2px solid #d4c8ff;
+    padding: 14px;
+    font-size: 16px;
+    transition: 0.2s;
+  }
+
+  .form-card input:focus {
+    border-color: #a779e9;
+    box-shadow: 0 0 0 3px rgba(167, 121, 233, 0.2);
+  }
+
+  .main-button button {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #7e5bef, #a779e9);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s ease;
+  }
+
+  .main-button button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(126, 91, 239, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .search-box input {
+      width: 100px;
+    }
+
+    .nav-link {
+      font-size: 14px;
+    }
+  }
+</style>
+
+
+    <!-- NAVBAR -->
+<!-- NAVBAR -->
+<nav class="navbar-custom">
+  <div class="container d-flex justify-content-between align-items-center py-3">
+    <div class="d-flex align-items-center gap-3">
+      <h3 class="text-white mb-0">SCHOLAR</h3>
+      <div class="search-box">
+        <i class="fas fa-search text-white"></i>
+        <input type="text" placeholder="Cari quiz...">
+      </div>
+    </div>
+    <ul class="nav gap-3">
+      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Quiz</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Materi</a></li>
+      <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
+      <li class="nav-item"><a class="nav-link fw-semibold" href="#">Register</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- MAIN SECTION -->
+<div class="services section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-5">
+        <div class="form-card">
+          <form method="POST" action="{{ route('periksaKode') }}" id="periksaForm">
+            @csrf
+            <h4><i class="fas fa-key me-2"></i>Masukkan Kode Quiz</h4>
+            <input name="kode" type="text" class="form-control" required placeholder="Contoh: ABC123">
+            <div class="main-button">
+              <button type="submit"><i class="fas fa-check-circle me-2"></i>Periksa Kode</button>
             </div>
-          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
         
           <!-- <div class="col-lg-4 col-md-6">
             <div class="service-item">
@@ -76,260 +217,7 @@
 
  
 
-  <section class="section courses" id="courses" >
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <div class="section-heading">
-            <h6>Latest Courses</h6>
-            <h2>Latest Courses</h2>
-          </div>
-        </div>
-      </div>
-      <ul class="event_filter">
-        <li>
-          <a href="{{ route('welcome')}}">Semua</a>
-        </li>
-    @foreach($kelas as $data)
-    <li>
-        <a class="filter-btn"  href="{{ route('welcome', ['search' => $data->id]) }}">{{$data->kelas}}</a>
-    </li>
-    @endforeach
-</ul>
-
-<div class="row event_box">
-    @foreach($quiz as $data)
-    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
-        <div class="events_item">
-            
-            <div class="down-content">
-                <span class="author">
-                    {{ $data->mapel->nama_mapel }}
-                </span>
-                <h4>{{ $data->judul }}</h4>
-                <br>
-                <span class="author">
-                  Jumlah Soal {{$data->jumlah_soal}}
-                </span>
-                <br>
-                <span class="author">
-                  Waktu {{$data->waktu_pengerjaan}} mnt
-                </span>
-
-                <br>
-                <br>
-                <div class="main-button">
-                  <a href="#">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endforeach
-</div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <div class="section testimonials">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-7">
-          <div class="owl-carousel owl-testimonials">
-            <div class="item">
-              <p>“Please tell your friends or collegues about TemplateMo website. Anyone can access the website to download free templates. Thank you for visiting.”</p>
-              <div class="author">
-                <img src="{{ asset('frontend/assets/images/testimonial-author.jpg')}}" alt="">
-                <span class="category">Full Stack Master</span>
-                <h4>Claude David</h4>
-              </div>
-            </div>
-            <div class="item">
-              <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravid.”</p>
-              <div class="author">
-                <img src="{{ asset('frontend/assets/images/testimonial-author.jpg')}}" alt="">
-                <span class="category">UI Expert</span>
-                <h4>Thomas Jefferson</h4>
-              </div>
-            </div>
-            <div class="item">
-              <p>“Scholar is free website template provided by TemplateMo for educational related websites. This CSS layout is based on Bootstrap v5.3.0 framework.”</p>
-              <div class="author">
-                <img src="{{ asset('frontend/assets/images/testimonial-author.jpg')}}" alt="">
-                <span class="category">Digital Animator</span>
-                <h4>Stella Blair</h4>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5 align-self-center">
-          <div class="section-heading">
-            <h6>TESTIMONIALS</h6>
-            <h2>What they say about us?</h2>
-            <p>You can search free CSS templates on Google using different keywords such as templatemo portfolio, templatemo gallery, templatemo blue color, etc.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section events" id="events">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <div class="section-heading">
-            <h6>Schedule</h6>
-            <h2>Upcoming Events</h2>
-          </div>
-        </div>
-        <div class="col-lg-12 col-md-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="image">
-                  <img src="{{ asset('frontend/assets/images/event-01.jpg')}}" alt="">
-                </div>
-              </div>
-              <div class="col-lg-9">
-                <ul>
-                  <li>
-                    <span class="category">Web Design</span>
-                    <h4>UI Best Practices</h4>
-                  </li>
-                  <li>
-                    <span>Date:</span>
-                    <h6>16 Feb 2036</h6>
-                  </li>
-                  <li>
-                    <span>Duration:</span>
-                    <h6>22 Hours</h6>
-                  </li>
-                  <li>
-                    <span>Price:</span>
-                    <h6>$120</h6>
-                  </li>
-                </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-12 col-md-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="image">
-                  <img src="{{ asset('frontend/assets/images/event-02.jpg')}}" alt="">
-                </div>
-              </div>
-              <div class="col-lg-9">
-                <ul>
-                  <li>
-                    <span class="category">Front End</span>
-                    <h4>New Design Trend</h4>
-                  </li>
-                  <li>
-                    <span>Date:</span>
-                    <h6>24 Feb 2036</h6>
-                  </li>
-                  <li>
-                    <span>Duration:</span>
-                    <h6>30 Hours</h6>
-                  </li>
-                  <li>
-                    <span>Price:</span>
-                    <h6>$320</h6>
-                  </li>
-                </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-12 col-md-6">
-          <div class="item">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="image">
-                  <img src="{{ asset('frontend/assets/images/event-03.jpg')}}" alt="">
-                </div>
-              </div>
-              <div class="col-lg-9">
-                <ul>
-                  <li>
-                    <span class="category">Full Stack</span>
-                    <h4>Web Programming</h4>
-                  </li>
-                  <li>
-                    <span>Date:</span>
-                    <h6>12 Mar 2036</h6>
-                  </li>
-                  <li>
-                    <span>Duration:</span>
-                    <h6>48 Hours</h6>
-                  </li>
-                  <li>
-                    <span>Price:</span>
-                    <h6>$440</h6>
-                  </li>
-                </ul>
-                <a href="#"><i class="fa fa-angle-right"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="contact-us section" id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6  align-self-center">
-          <div class="section-heading">
-            <h6>Contact Us</h6>
-            <h2>Feel free to contact us anytime</h2>
-            <p>Thank you for choosing our templates. We provide you best CSS templates at absolutely 100% free of charge. You may support us by sharing our website to your friends.</p>
-            <div class="special-offer">
-              <span class="offer">off<br><em>50%</em></span>
-              <h6>Valide: <em>24 April 2036</em></h6>
-              <h4>Special Offer <em>50%</em> OFF!</h4>
-              <a href="#"><i class="fa fa-angle-right"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="contact-us-content">
-            <form id="contact-form" action="" method="post">
-              <div class="row">
-                <div class="col-lg-12">
-                  <fieldset>
-                    <input type="name" name="name" id="name" placeholder="Your Name..." autocomplete="on" required>
-                  </fieldset>
-                </div>
-                <div class="col-lg-12">
-                  <fieldset>
-                    <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*" placeholder="Your E-mail..." required="">
-                  </fieldset>
-                </div>
-                <div class="col-lg-12">
-                  <fieldset>
-                    <textarea name="message" id="message" placeholder="Your Message"></textarea>
-                  </fieldset>
-                </div>
-                <div class="col-lg-12">
-                  <fieldset>
-                    <button type="submit" id="form-submit" class="orange-button">Send Message Now</button>
-                  </fieldset>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
 
 @include('layouts.component-frontend.footer')
 

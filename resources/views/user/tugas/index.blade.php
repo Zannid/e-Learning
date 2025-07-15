@@ -111,11 +111,12 @@
               <p>{{ $item->mapel->nama_mapel }}</p>
               <p>{{ $item->tenggat_waktu->format('d M Y H:i') }}</p>
               <div class="main-button">
-                @if(now()->gt($item->tenggat_waktu))
-                  <span class="badge bg-danger">Tenggat Berakhir</span>
-                @else
-                  <a href="{{ route('user.tugas.kerjakan', $item->id) }}" class="btn btn-primary">Kerjakan</a>
-                @endif
+                @if(\Carbon\Carbon::now()->gt(\Carbon\Carbon::parse($item->tenggat_waktu)))
+    <span class="badge bg-danger">Tenggat Berakhir</span>
+@else
+    <a href="{{ route('user.tugas.kerjakan', $item->id) }}" class="btn btn-primary">Kerjakan</a>
+@endif
+
               </div>
             </div>
           </div>

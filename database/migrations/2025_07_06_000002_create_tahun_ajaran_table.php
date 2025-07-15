@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kelas', function (Blueprint $table) {
-            $table->id();
-            $table->string('kelas');
-            $table->enum('jurusan',['RPL','TKRO','TBSM']);
-            $table->timestamps();
-        });
+        Schema::create('tahun_ajarans', function (Blueprint $table) {
+    $table->id();
+    $table->string('nama'); // Contoh: 2024/2025
+    $table->boolean('is_active')->default(false);
+    $table->timestamps();
+});
+
     }
 
     /**
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kelas');
+        Schema::dropIfExists('tahun_ajaran');
     }
 };
