@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Kelas;
+use App\Models\Tugas;
 use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,10 +19,11 @@ class SiswaController extends Controller
     public function index(Request $request)
     {
         $query = User::where('role', 'siswa');
+        $tugas = Tugas::where('id_kelas', auth()->user()->id_kelas)->get();
         $siswa = $query->get();
 
         // Tidak perlu munculkan alert warning di sini, karena tidak sedang menghapus
-        return view('admin.siswa.index', compact('siswa', 'request'));
+        return view('admin.siswa.index', compact('siswa','tugas', 'request'));
     }
 
     /**

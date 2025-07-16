@@ -13,7 +13,7 @@ class MateriController extends Controller
      */
     public function index()
     {
-        $materi = Materi::all();
+        $materi = Materi::where('id_kelas', auth()->user()->id_kelas)->get();
         $mapel  = Mapel::all();
         $kelas  = Kelas::all();
 

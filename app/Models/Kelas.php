@@ -19,5 +19,9 @@ public function tahunAjaran()
 {
     return $this->belongsTo(TahunAjaran::class, 'id_tahun_ajaran');
 }
+public function guru()
+{
+    return $this->belongsToMany(User::class, 'guru_kelas', 'kelas_id', 'user_id');
+}
 
 }

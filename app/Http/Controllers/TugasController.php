@@ -12,8 +12,15 @@ class TugasController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
+
     public function index()
     {
+        $guru     = auth()->user();                  // login sebagai guru
+        $kelasIds = $guru->kelasDiampu->pluck('id'); // ambil ID kelas yang dia pegang
+
+        $tugas = Tugas::whereIn('id_kelas', $kelasIds)->get();
+
         $tugas  = Tugas::all();
         $mapel = Mapel::all();
         return view('admin.tugas.index', compact('tugas', 'mapel'));

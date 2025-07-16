@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Kelas;
 use Illuminate\Support\Facades\Hash;
 
 class GuruController extends Controller
@@ -18,12 +19,10 @@ class GuruController extends Controller
     }
     public function index(Request $request)
     {
-        $query = User::where('role', 'guru');
-        $guru = $query->get();
-
-        // Tidak perlu munculkan alert warning di sini, karena tidak sedang menghapus
+        $guru = User::where('role', 'guru')->get(); // ambil semua guru
         return view('admin.guru.index', compact('guru', 'request'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -140,4 +139,28 @@ class GuruController extends Controller
         // Redirect kembali dengan session sukses
         return redirect()->route('guru.index')->with('success', 'Data berhasil dihapus');
     }
+    public function showAssignKelasForm($id)
+    {
+        $guru = User::where('role', 'guru')->findOrFail($id);
+        $kelasList = Kelas::all();
+        return view('admin.guru.assign-kelas', compact('guru', 'kelasList'));
+    }
+
+public function assignKelasForm($id)
+{
+    $guru = User::findOrFail($id); // pastikan ini model User, bukan boolean
+    $kelas = Kelas::all();
+
+    return view('admin.guru.assign_kelas', compact('guru', 'kelas'));
+}
+public function assignKelas(Request $request, $id)
+{
+    $guru = User::findOrFail($id);
+    
+    // Simpan kelas yang dipilih (many-to-many)
+    $guru->kelasDiampu()->sync($request->kelas_id); // kelas_id adalah array dari input
+
+    return redirect()->route('guru.index')->with('success', 'Kelas berhasil ditugaskan ke guru.');
+}
+
 }

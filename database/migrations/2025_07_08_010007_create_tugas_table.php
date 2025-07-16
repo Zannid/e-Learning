@@ -19,6 +19,7 @@
                 $table->string('judul');
                 $table->integer('jumlah_soal');
                 $table->string('foto')->nullable();
+                $table->foreignId('id_kelas')->nullable()->constrained('kelas')->onDelete('set null');
                 $table->unsignedBigInteger('id_mapel');
                 $table->timestamp('tenggat_waktu')->nullable();
                 $table->timestamps();

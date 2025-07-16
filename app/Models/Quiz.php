@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Quiz extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','kode_quiz','judul','id_mapel','jumlah_soal','tenggat_waktu','foto','create_at','durasi','update_at'];
+    protected $fillable = ['id','kode_quiz','judul','id_mapel','jumlah_soal','tenggat_waktu','foto','id_kelas','create_at','durasi','update_at'];
     public $timestamps = true;
     protected $casts = [
     'tenggat_waktu' => 'datetime',
@@ -24,4 +24,8 @@ class Quiz extends Model
     {
         return $this->hasMany(NilaiQuiz::class, 'id_quiz');
     }
+    public function kelas()
+{
+    return $this->belongsTo(Kelas::class, 'id_kelas');
+}
 }

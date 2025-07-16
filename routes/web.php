@@ -75,6 +75,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('guru', GuruController::class);
     Route::resource('mapel', MapelController::class);
     Route::resource('kelas', KelasController::class);
+    Route::get('guru/{id}/assign-kelas', [GuruController::class, 'showAssignKelasForm'])->name('guru.assignKelasForm');
+Route::post('guru/{id}/assign-kelas', [GuruController::class, 'assignKelas'])->name('guru.assignKelas');
+
 });
 
 
@@ -89,3 +92,5 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [FrontController::class, 'index'])->name('welcome');
+

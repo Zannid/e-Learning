@@ -16,6 +16,8 @@ class QuizController extends Controller
     {
         $quiz = Quiz::all();
         $mapel = Mapel::all();
+        $kelas = auth()->user()->kelasDiampu;
+
         return view('admin.quiz.index', compact('quiz', 'mapel'));
 
     }
@@ -27,7 +29,9 @@ class QuizController extends Controller
     {
         $mapel = Mapel::all();
         $quiz = Quiz::all();
-        return view('admin.quiz.create', compact('mapel'));
+        $kelas = auth()->user()->kelasDiampu;
+
+        return view('admin.quiz.create', compact('mapel','kelas'));
     }
 
     /**
@@ -56,6 +60,7 @@ class QuizController extends Controller
             'jumlah_soal'   => $request->jumlah_soal,
             'tenggat_waktu' => Carbon::parse($request->tenggat_waktu),
             'durasi'        => $request->durasi,
+            'id_kelas'      => $request->id_kelas,
         ]);
 
         // Simpan soal

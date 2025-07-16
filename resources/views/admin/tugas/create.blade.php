@@ -92,6 +92,19 @@
                     </div>
                   </div>
                 </div>
+                <div class="input-style-1">
+                  <label>Kelas</label>
+                  <div class="select-style-1">
+                    <div class="select-position">
+                      <select name="id_kelas" required>
+                        <option disabled selected value="">Pilih Kelas</option>
+                       @foreach($guru->kelasDiampu as $kelas)
+                            <option value="{{ $kelas->id }}">{{ $kelas->kelas }} - {{ $kelas->jurusan }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="input-style-1">
                   <label>Jumlah Soal</label>

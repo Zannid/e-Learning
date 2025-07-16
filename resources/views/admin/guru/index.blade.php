@@ -16,6 +16,7 @@
             <i class="mdi mdi-plus-box"></i> Tambah
         </a>
     </div>
+    
     <form action="{{ route('guru.index') }}" method="get" class="d-flex" style="max-width: 300px;">
         <button class="btn btn-outline-primary btn-sm" type="submit">
             <i class="lni lni-search-alt"></i>
@@ -40,6 +41,10 @@
                             <th scope="row">{{ $no++ }}</th>
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
+                            
+                             <td>
+                                <a href="{{ route('guru.assignKelasForm', $data->id) }}" class="btn btn-sm btn-warning">Assign Kelas</a>
+                            </td>
                             
                            <td>
                                         <div class="action justify-content">

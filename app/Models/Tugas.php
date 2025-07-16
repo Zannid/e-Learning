@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tugas extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','kode_tugas','judul','id_mapel','jumlah_soal','tenggat_waktu','foto','create_at','update_at'];
+    protected $fillable = ['id','kode_tugas','judul','id_mapel','jumlah_soal','tenggat_waktu','foto','id_kelas','create_at','update_at'];
     public $timestamps = true;
     protected $casts = [
     'tenggat_waktu' => 'datetime',
@@ -23,6 +23,10 @@ class Tugas extends Model
         public function nilai()
     {
         return $this->hasMany(NilaiTugas::class, 'id_tugas');
+    }
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas');
     }
 
 }
