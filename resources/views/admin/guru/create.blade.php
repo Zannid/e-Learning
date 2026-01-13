@@ -20,7 +20,7 @@
                 @endif
                
                  <div class="card-body">
-                  <form method="POST" action="{{ route('guru.store') }}">
+                  <form method="POST" action="{{ route('guru.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                       <div class="col-12 mt-2">
@@ -32,6 +32,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                        </div>
+                      </div>
+                      <div class="col-12 mt-2">
+                        <div class="input-style-1">
+                          <label>Foto(optional)</label>
+                            <input type="file" class="form-control @error('foto') is-invalid @enderror" name="foto">
+            
                         </div>
                       </div>
                       <div class="col-12 mt-2">

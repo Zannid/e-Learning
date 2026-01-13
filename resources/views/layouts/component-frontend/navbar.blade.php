@@ -10,21 +10,29 @@
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Serach Start ***** -->
-                    <div class="search-input">
-                      <form id="search" action="#">
-                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                        <i class="fa fa-search"></i>
-                      </form>
-                    </div>
+                   
                     <!-- ***** Serach Start ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                      <li class="scroll-to-section"><a href="{{ route('user.quizz')}}">Quiz</a></li>
+                      <li class="scroll-to-section"><a href="{{ route('home')}}" class="active">Home</a></li>
                       <li class="scroll-to-section"><a href="#courses">Materi</a></li>
+                      @if(Auth::check() && (Auth::user()->role === 'siswa'))
+                      <li class="scroll-to-section"><a href="{{ route('user.quizz')}}">Quiz</a></li>
                       <li class="scroll-to-section"><a href="{{ route('user.tugas.index')}}">Tugas</a></li>
-                      <li class="scroll-to-section"><a href="#events">Events</a></li>
-                      <li class="scroll-to-section"><a href="{{ route('login')}}">Login</a></li>
+                      @endif
+                      @if(Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'guru'))
+                      <li class="scroll-to-section"><a href="{{ route('home')}}">Dashboard</a></li>
+                      @endif
+
+                      <li>
+                              @if (Auth::check())
+                                  <a href="{{ route('profile', Auth::user()->id) }}"><img
+                                          src="{{ asset('backend/assets/images/profile/profile-image.png') }}"
+                                          alt="image" style="width: 40px"></a>
+                              @else
+                                  <a href="{{ route('login') }}">Login</a>
+                              @endif
+                          </li>
                   </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>

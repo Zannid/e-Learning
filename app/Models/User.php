@@ -53,7 +53,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(TahunAjaran::class, 'id_tahun_ajaran');
     }
-        public function kelasDiampu()
+    public function kelasDiampu()
     {
         return $this->belongsToMany(Kelas::class, 'guru_kelas', 'user_id', 'kelas_id');
     }

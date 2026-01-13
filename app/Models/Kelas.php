@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kelas extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','kelas','jurusan','create_at','update_at'] ;
+    protected $fillable = ['id','kelas','create_at','update_at'] ;
     public $timestamps = true;
 
     public function users()

@@ -24,7 +24,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [FrontController::class, 'index'])->name('welcome');
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+
+
+
+Auth::routes(['register' => false]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('user{id}', [App\Http\Controllers\FrontController::class, 'profile'])->name('profile');
+
 
 Route::get('materi{id}', [App\Http\Controllers\FrontController::class, 'isi'])->name('isi');
 
@@ -51,7 +61,7 @@ Route::middleware(['auth', 'role:guru,admin'])->group(function () {
 Route::middleware(['auth', 'role:siswa'])->prefix('user')->name('user.')->group(function () {
     Route::get('/tugas', [UserTugasController::class, 'index'])->name('tugas.index');
     Route::get('/tugas/{id}/kerjakan', [UserTugasController::class, 'kerjakan'])->name('tugas.kerjakan');
-    Route::post('/tugas/{id}/submit', [UserTugasController::class, 'submit'])->name('tugas.submit');
+    Route::post('/tugas/{id}/submit', [UserTugasController::class, 'tugasSubmit'])->name('tugasSubmit');
     Route::get('/tugas/{id}/hasil', [UserTugasController::class, 'hasil'])->name('tugas.hasil');
     Route::get('/quiz', [UserQuizController::class, 'index'])->name('quiz.index');
     Route::get('/quiz/{id}/kerjakan', [UserQuizController::class, 'kerjakan'])->name('quiz.kerjakan');

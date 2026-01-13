@@ -80,7 +80,7 @@
   <div class="container">
     <div class="result-wrapper">
       <div class="result-card text-center">
-        <h3><i class="fas fa-check-circle text-success me-2"></i> Hasil Quiz Anda</h3>
+        <h3><i class="fas fa-check-circle text-success me-2"></i> Hasil Quiz </h3>
 
         @isset($nilai)
          <div class="circular-score mt-4 mb-4">

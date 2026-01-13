@@ -27,7 +27,7 @@ class UserTugasController extends Controller
     }
 
     // Menyimpan hasil pengerjaan
-public function submit(Request $request, $id)
+public function tugasSubmit(Request $request, $id)
 {
     $tugas = Tugas::with('soal')->findOrFail($id);
 
@@ -69,15 +69,30 @@ public function submit(Request $request, $id)
 
 
 
-   public function hasil($id)
+    public function hasil($id)
 {
-    $hasil = \App\Models\NilaiTugas::where('id_user', Auth::id())
+    $userId = Auth::id();
+
+    $hasil = NilaiTugas::where('id_user', $userId)
         ->where('id_tugas', $id)
         ->firstOrFail();
 
-    return view('user.quiz.hasil', [
+    // Ambil hanya jawaban terakhir per soal dari tugas ini oleh user ini
+    $jawabanTerakhirPerSoal = JawabanTugas::where('id_user', $userId)
+        ->where('id_tugas', $id)
+        ->orderBy('created_at', 'desc')
+        ->get()
+        ->unique('id_soal'); // hanya ambil satu jawaban terbaru per soal
+
+    $jumlahBenar = $jawabanTerakhirPerSoal->where('benar', true)->count();
+    $jumlahSalah = $jawabanTerakhirPerSoal->where('benar', false)->count();
+
+    return view('user.tugas.hasil', [
+        'tugas_id' => $id,
         'nilai' => $hasil->nilai,
-        'id_tugas' => $id
+        'benar' => $jumlahBenar,
+        'salah' => $jumlahSalah,
+        'jawaban_terakhir' => $jawabanTerakhirPerSoal,
     ]);
 }
 }

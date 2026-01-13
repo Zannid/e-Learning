@@ -102,15 +102,15 @@ class MateriController extends Controller
         $materi->id_kelas   = $request->id_kelas;
 
       if ($request->hasFile('foto')) {
-    if ($materi->foto && file_exists(public_path('storage/materi/' . $materi->foto))) {
-        unlink(public_path('storage/materi/' . $materi->foto));
-    }
+        if ($materi->foto && file_exists(public_path('storage/materi/' . $materi->foto))) {
+            unlink(public_path('storage/materi/' . $materi->foto));
+        }
 
-    $img  = $request->file('foto');
-    $name = time() . '_' . $img->getClientOriginalName();
-    $img->move(public_path('storage/materi'), $name);
-    $materi->foto = $name;
-}
+        $img  = $request->file('foto');
+        $name = time() . '_' . $img->getClientOriginalName();
+        $img->move(public_path('storage/materi'), $name);
+        $materi->foto = $name;
+        }
 
 
 

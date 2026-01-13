@@ -4,20 +4,17 @@
 <div class="container">
     <h4>Assign Kelas ke {{ $guru->name }}</h4>
 
-    <form action="{{ route('guru.assignKelas', $guru->id) }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="kelas_id">Pilih Kelas</label>
-            <select name="kelas_id[]" class="form-control" multiple required>
-                @foreach($kelasList as $kelas)
-                    <option value="{{ $kelas->id }}" 
-                        {{ $guru->kelasDiampu->contains($kelas->id) ? 'selected' : '' }}>
-                        {{ $kelas->kelas }} - {{ $kelas->jurusan }}
-                    </option>
-                @endforeach
-            </select>
+    <form method="POST" action="{{ route('guru.assignKelas', $guru->id) }}">
+    @csrf
+    @foreach ($kelasList as $k)
+        <div class="form-check">
+            <input type="checkbox" name="kelas_id[]" value="{{ $k->id }}"
+                {{ $guru->kelasDiampu->contains($k->id) ? 'checked' : '' }}>
+            {{ $k->kelas }} - {{ $k->jurusan }}
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
-    </form>
+    @endforeach
+    <button type="submit" class="btn btn-primary mt-3">Simpan</button>
+</form>
+
 </div>
 @endsection

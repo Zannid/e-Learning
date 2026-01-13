@@ -35,7 +35,7 @@
     <div class="container py-4">
         <h2 class="mb-4 text-center">Mengerjakan: <strong>{{ $tugas->judul }}</strong></h2>
         
-        <form method="POST" action="{{ route('user.tugas.submit', $tugas->id) }}">
+        <form method="POST" action="{{ route('user.tugasSubmit', $tugas->id) }}">
             @csrf
             
             @foreach ($tugas->soal as $soal)

@@ -113,7 +113,6 @@ class GuruController extends Controller
             $guru->password = Hash::make($request->password);
         }
         if ($request->hasFile('foto')) {
-
             $img  = $request->file('foto');
             $name = rand(1000, 9999) . $img->getClientOriginalName();
             $img->move('storage/guru', $name);

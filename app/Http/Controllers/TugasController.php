@@ -32,9 +32,10 @@ class TugasController extends Controller
      */
     public function create()
     {
+        $guru  = auth()->user();
         $mapel = Mapel::all();
         $tugas = Tugas::all();
-        return view('admin.tugas.create', compact('mapel'));
+        return view('admin.tugas.create', compact('mapel', 'guru'));
     }
 
     /**
@@ -143,7 +144,50 @@ class TugasController extends Controller
             return redirect()->route('tugas.index')->with('success', 'Tugas berhasil diperbarui!');
         }
     
+    public function tugasSubmit(Request $request, $id)
+    {
+        $id_tugas     = Tugas::with('soal')->findOrFail($id);
+        $jawabanUser = $request->jawaban;
+        $benar       = 0;
+        $totalSoal   = $id_tugas->soal->count();
 
+        foreach ($id_tugas->soal as $soal) {
+            $jawaban = $jawabanUser[$soal->id] ?? null;
+            if ($jawaban && $jawaban === $soal->jawaban_benar) {
+                $benar++;
+            }
+        }
+
+        if ($totalSoal == 0) {
+            $nilai = 0;
+        } else {
+            $nilai = ($benar / $totalSoal) * 100;
+        }
+
+        NilaiTugas::create([
+            'id_user' => Auth::id(),
+            'id_tugas' => $id_tugas->id,
+            'nilai'   => $nilai,
+        ]);
+        foreach ($id_tugas->soal as $soal) {
+            $jawaban   = $jawabanUser[$soal->id] ?? null;
+            $isCorrect = $jawaban === $soal->jawaban_benar;
+
+            JawabanTugas::create([
+                'id_user' => Auth::id(),
+                'id_tugas' => $id_tugas->id,
+                'id_soal' => $soal->id,
+                'jawaban' => $jawaban,
+                'benar'   => $isCorrect,
+            ]);
+
+            if ($isCorrect) {
+                $benar++;
+            }
+        }
+
+        return view('user.tugas.hasil', compact('nilai'));
+    }
     public function destroy(string $id)
     {
         $tugas = Tugas::findOrFail($id);

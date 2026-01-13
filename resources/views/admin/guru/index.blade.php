@@ -39,7 +39,10 @@
                           @foreach ($guru as $data)
                           <tr>
                             <th scope="row">{{ $no++ }}</th>
-                            <td>{{ $data->name }}</td>
+                            <td>
+                                <img src="{{ asset('storage/guru/' . $data->foto)}}" alt="Foto" style="width: 40px; height: 40px; border-radius: 50%;">
+
+                                {{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
                             
                              <td>

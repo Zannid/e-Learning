@@ -101,7 +101,7 @@
                       <select name="id_kelas" required>
                         <option disabled selected value="">Pilih Kelas</option>
                        @foreach ($kelas as $item)
-                          <option value="{{ $item->id }}">{{ $item->kelas }} - {{ $item->jurusan }}</option>
+                          <option value="{{ $item->id }}">{{ $item->kelas }}</option>
                       @endforeach
                       </select>
                     </div>

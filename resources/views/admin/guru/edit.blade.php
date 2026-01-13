@@ -37,6 +37,14 @@
                       </div>
                       <div class="col-12">
                         <div class="input-style-1">
+                          <label>Nama</label>
+                           <img src="{{ asset('/storage/guru/' . $guru->foto) }}" width="100">
+                                <input type="file" class="form-control" name="foto"
+                            id="putih" style="color: #000; background-color: #f5f5f5;" accept="image/*" value="{{ $guru->foto }}">
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="input-style-1">
                           <label>Email</label>
                           <input class=" form-control @error('email') is-invalid @enderror" name="email" value="{{ $guru->email }}" type="email" placeholder="Email" />
                             @error('email')
@@ -50,7 +58,7 @@
                       <div class="col-12">
                         <div class="input-style-1">
                           <label>Password</label>
-                          <input type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password"/>
+                          <input type="password" placeholder="Password"  class="form-control @error('password') is-invalid @enderror" name="password"/>
                              @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -5,9 +5,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="{{ asset('assets/images/logos/esa.png') }}" rel="stylesheet">
 
-    <title>Scholar - Online School HTML5 Template</title>
+    <title>ESA E-Learning SMK Assalaamw</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -146,18 +146,11 @@
 <nav class="navbar-custom">
   <div class="container d-flex justify-content-between align-items-center py-3">
     <div class="d-flex align-items-center gap-3">
-      <h3 class="text-white mb-0">SCHOLAR</h3>
-      <div class="search-box">
-        <i class="fas fa-search text-white"></i>
-        <input type="text" placeholder="Cari quiz...">
-      </div>
+      <h3 class="text-white mb-0">ESA</h3>
+      
     </div>
     <ul class="nav gap-3">
-      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Quiz</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Materi</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
-      <li class="nav-item"><a class="nav-link fw-semibold" href="#">Register</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ route('welcome')}}">Kembali</a></li>
     </ul>
   </div>
 </nav>
